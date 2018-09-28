@@ -14,17 +14,16 @@ main {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: distribute;
-        justify-content: space-around;
+		justify-content: space-around;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
 section {
 	padding: 2rem;
     -webkit-box-flex: 1;
-        -ms-flex: 0 1 50%;
-            flex: 0 1 50%;
-}
-section:first-of-type {
-    border-right: 1px solid #27283e;
+        -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
 }
 
 /**
@@ -100,4 +99,16 @@ button:active {
 
 .no-bold {
     font-weight: normal;
+}
+
+@media only screen and (min-width: 700px) {
+	section {
+		-webkit-box-flex: 1;
+			-ms-flex: 0 1 50%;
+				flex: 0 1 50%;
+
+	}
+	section:first-of-type {
+		border-right: 1px solid #27283e;
+	}
 }
