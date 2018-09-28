@@ -1,0 +1,103 @@
+body {
+    font-family: sans-serif;
+	color: white;
+	background-color: #27283e;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#000000), color-stop(#140d11), color-stop(#1e161e), color-stop(#251e2d), to(#27283e));
+    background-image: linear-gradient(to bottom, #000000, #140d11, #1e161e, #251e2d, #27283e);
+	background-repeat: no-repeat;
+}
+
+main {
+	width: 75%;
+	margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+}
+
+section {
+	padding: 2rem;
+    -webkit-box-flex: 1;
+        -ms-flex: 0 1 50%;
+            flex: 0 1 50%;
+}
+section:first-of-type {
+    border-right: 1px solid #27283e;
+}
+
+/**
+		 * Add box sizing to everything
+		 * @link http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+		 */
+
+/* line 38, src/sass/components/_normalize.scss */
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+/**
+		 * Typography
+		 */
+
+h2 {
+    font-weight: normal;
+    margin-top: 2em;
+}
+
+/**
+		 * Forms
+		 */
+
+input {
+    margin-bottom: 1em;
+    padding: 0.5em 1em;
+    width: 100%;
+}
+
+[type="checkbox"] {
+    width: auto;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    width: 100%;
+}
+
+button {
+    background-color: #0088cc;
+    border: 1px solid #0088cc;
+    border-radius: 1px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 0.9375em;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-right: 0.3125em;
+    margin-bottom: 0.3125em;
+    padding: 0.5em 0.6875em;
+}
+
+button:hover,
+button:focus,
+button:active {
+    background-color: #005580;
+    border-color: #005580;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/**
+		 * Utilities
+		 */
+
+.no-bold {
+    font-weight: normal;
+}

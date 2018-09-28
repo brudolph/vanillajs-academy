@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project 1 - Vanilla JS Academy</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="/includes/css/main.css">
+</head>
+
+<body>
+    <main role="main">
+        <section>
+            <h2>Log In</h2>
+            <form id="logIn" role="form">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" data-password="true">
+                </div>
+                <div>
+                    <label class="no-bold" for="show-passwords">
+                        <input type="checkbox" name="show-passwords" id="show-passwords" aria>
+                        Show password
+                    </label>
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+        </section>
+        
+        <section>
+            <h2>Update Password</h2>
+            <form id="updatePass" role="form">
+                <div>
+                    <label for="current-pw">Current Password</label>
+                    <input type="password" name="current-pw" id="current-pw" data-password="true">
+                </div>
+                <div>
+                    <label for="new-pw">New Password</label>
+                    <input type="password" name="new-pw" id="new-pw" data-password="true">
+                </div>
+                <div>
+                    <label class="no-bold" for="show-password">
+                        <input type="checkbox" name="show-password" id="show-password">
+                        Show passwords
+                    </label>
+                </div>
+                <button type="submit">Change Password</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="/includes/js/library.js"></script>
+    <script>
+        showPassword();
+    </script>
+</body>
+
+</html>
