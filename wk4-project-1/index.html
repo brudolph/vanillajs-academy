@@ -51,7 +51,6 @@
             padding: 0;
             list-style-type: none;
         }
-
         .tabs>li {
             background: #cfcfcf;
         }
@@ -59,6 +58,10 @@
         .tabs>li a {
             display: block;
             padding: 8px;
+            text-decoration: none;
+        }
+        .tabs>li a[aria-selected="true"] {
+            border-bottom: 4px solid rgba(0, 162, 255, 0.588);
         }
     </style>
 </head>
@@ -124,29 +127,32 @@
 
             // Private Function
             publicAPIs.showTab = function (tab, content) {
-                hideTabs();
-                var currentTab = tab;
-                var currentPanel = content;
+                //clear out open tabs before setting current tab
+                clearTabs();
 
-                currentTab.setAttribute('aria-selected', 'true');
-                currentPanel.removeAttribute('hidden', '')
+                tab.setAttribute('aria-selected', 'true');
+                content.removeAttribute('hidden', '');
             }
 
-            var hideTabs = function () {
+            var clearTabs = function () {
+                //hide all tab panels
                 for (let i = 0; i < tabPanels.length; i++) {
                     tabPanels[i].setAttribute('hidden', '');
                 }
-
+                //remove aria selected attribute from all tabs
                 for (let i = 0; i < tabs.length; i++) {
                     tabs[i].setAttribute('aria-selected', 'false');
+                    tabs[i].removeAttribute('style', 'border-bottom: 4px solid rgba(0, 162, 255, 0.588); ');
                 }
             }
 
             // Handle click events 
             var clickHandler = function (event) {
 
+                //grab the tab that was clicked and make sure it's a tab not anything else
                 var tab = event.target.closest('[role="tab"]');
                 if (!tab) return;
+
                 var content = document.querySelector(tab.hash);
                 if (!content) return;
 
@@ -211,15 +217,17 @@
             }
 
             var tabDefault = function() {
-                // show first tab by default
+                // show first tab by default if there hasn't been a new default tab set
                 var initialTab = document.querySelector('a[href="' + settings.defaultTab + '"]');
                 var initialPanel = document.querySelector(settings.defaultTab);
-
+                
                 if (!initialTab) {
-                    tabPanels[0].removeAttribute('hidden');
                     tabs[0].setAttribute('aria-selected', 'true ');
+                    tabs[0].setAttribute('style', 'border-bottom: 4px solid rgba(0, 162, 255, 0.588); ');
+                    tabPanels[0].removeAttribute('hidden');
                 } else {
                     initialTab.setAttribute('aria-selected', 'true ');
+                    initialTab.setAttribute('style', 'border-bottom: 4px solid rgba(0, 162, 255, 0.588); ');
                     initialPanel.removeAttribute('hidden');
                 }
 
@@ -234,7 +242,7 @@
                 ariaSetup();
 
                 //setup tabpanels 
-                hideTabs();
+                clearTabs();
                 
                 //setup default tab
                 tabDefault();
@@ -245,7 +253,8 @@
             return publicAPIs;
 
         })();
-
+        
+        //developers can change default tab by adding their tab id
         tabbedPanels.init({
             defaultTab: '#wonder-woman'
         });
