@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<title>Random Ron Swanson</title>
+
+	<meta charset="utf-8">
+
+	<!-- Force latest available IE rendering engine and Chrome Frame (if installed) -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<!-- Mobile Screen Resizing -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<style type="text/css">
+		/**
+		 * Add box sizing to everything
+		 * @link http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+		 */
+		/* line 38, src/sass/components/_normalize.scss */
+		*,
+		*:before,
+		*:after {
+			box-sizing: border-box;
+		}
+
+		/**
+		 * Layout
+		 */
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+			font-size: 112.5%;
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 40em;
+			width: 88%;
+		}
+
+		img {
+			height: auto;
+			max-width: 100%;
+		}
+
+		/**
+		 * Button Styles
+		 */
+		button {
+			background-color: #0088cc;
+			border: 1px solid #0088cc;
+			border-radius: 1px;
+			color: #ffffff;
+			display: inline-block;
+			font-size: 0.9375em;
+			font-weight: normal;
+			line-height: 1.2;
+			margin-right: 0.3125em;
+			margin-bottom: 0.3125em;
+			padding: 0.5em 0.6875em;
+		}
+
+		button:hover,
+		button:focus,
+		button:active {
+			background-color: #005580;
+			border-color: #005580;
+			color: #ffffff;
+			text-decoration: none;
+		}
+
+		/**
+		 * Blockquotes
+		 */
+		blockquote {
+			font-style: italic;
+		}
+
+		blockquote:before,
+		blockquote:after {
+			content: '"';
+		}
+
+		.random-ron {
+			position: relative;
+			width:720px;
+			height: 450px;
+			background-image: url(/images/tv-show-best-boss-ron-swanson.jpg);
+			background-size: contain;
+			background-repeat: no-repeat;
+			max-width: 100%;
+			text-align: center;
+			margin: 0 auto;
+		}
+		.random-ron.sad {
+			background-image: url(/images/sad_ron.jpg);
+		}
+		.random-ron .quote {
+			position: absolute;
+			bottom:0;
+			width: 100%;
+			margin: 0;
+			padding: 15px 80px;
+			color: white;
+			text-align: center;
+			font-size: 120%;
+			font-weight: 600;
+			text-shadow: 2px 2px #000;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<h1>Random Ron Swanson</h1>
+
+	<div class="random-ron">
+		<blockquote class="quote" data-random-quote=""></blockquote>
+	</div>
+
+	<button data-quote-btn>More Ron</button>
+
+	<script src="/includes/js/random_ron.js"></script>
+	<script>
+		randomRon();
+	</script>
+
+</body>
+
+</html>

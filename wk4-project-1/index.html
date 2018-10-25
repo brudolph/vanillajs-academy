@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Tabs</title>
+
+    <meta charset="utf-8">
+
+    <!-- Force latest available IE rendering engine and Chrome Frame (if installed) -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- Mobile Screen Resizing -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+        /**
+		 * Add box sizing to everything
+		 * @link http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+		 */
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        /**
+		 * Layout
+		 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            font-size: 112.5%;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 40em;
+            width: 88%;
+        }
+
+        [hidden] {
+            display: none;
+            visibility: hidden;
+        }
+
+        .tab-content {
+            background: #cfcfcf;
+            padding: 10px 30px 30px 30px;
+        }
+
+        .tabs {
+            display: inline-flex;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .tabs>li {
+            background: #cfcfcf;
+        }
+
+        .tabs>li a {
+            display: block;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Tabs</h1>
+    <div class="tab-content" data-tab-container>
+        <ul class="tabs">
+            <li><a href="#spiderman">Spiderman</a></li>
+            <li><a href="#wonder-woman">Wonder Woman</a></li>
+            <li><a href="#wolverine">Wolverine</a></li>
+        </ul>
+        <div id="spiderman" class="tab-panel" data-tab-panel>
+            <h2>Spiderman</h2>
+            <p>After being bitten by a radioactive spider at a science exhibit, Peter Parker "acquires the agility
+                and
+                proportionate strength of an arachnid." Along with super strength, Peter gains the ability to adhere
+                to
+                walls and
+                ceilings.</p>
+        </div>
+        <div id="wonder-woman" class="tab-panel" data-tab-panel>
+            <h2>Wonder Woman</h2>
+            <p>Diana, aka Wonder Woman, is the daughter of Hippolyta and grows up on the Amazon island of
+                Themyscira.
+                After
+                American pilot and spy Steve Trevor crashes offshore of the island and is rescued by her, he tells
+                the
+                Amazons about
+                the ongoing World War.</p>
+        </div>
+        <div id="wolverine" class="tab-panel" data-tab-panel>
+            <h2>Wolverine</h2>
+            <p>Wolverine is a mutant and member of the X-Men, who possesses animal-keen senses, enhanced physical
+                capabilities,
+                powerful regenerative ability known as a healing factor, and three retractable claws in each hand.</p>
+        </div>
+    </div>
+
+    <script>
+        var tabbedPanels = (function () {
+
+            'use strict;'
+
+            //
+            // Local Variables
+            //
+
+            var tabContainer = document.querySelector('[data-tab-container]');
+            var tabList = document.querySelector('[data-tab-container] ul');
+            var tabs = document.querySelectorAll('[data-tab-container] ul > li > a');
+            var tabPanels = document.querySelectorAll('[data-tab-panel]');
+
+            // Public APIs
+            var publicAPIs = {};
+            var settings;
+
+            // Default values for Public API function
+            var defaults = {
+                defaultTab: tabs[0].hash
+            }
+
+            // Private Function
+            publicAPIs.showTab = function (tab, content) {
+                hideTabs();
+                var currentTab = tab;
+                var currentPanel = content;
+
+                currentTab.setAttribute('aria-selected', 'true');
+                currentPanel.removeAttribute('hidden', '')
+            }
+
+            var hideTabs = function () {
+                for (let i = 0; i < tabPanels.length; i++) {
+                    tabPanels[i].setAttribute('hidden', '');
+                }
+
+                for (let i = 0; i < tabs.length; i++) {
+                    tabs[i].setAttribute('aria-selected', 'false');
+                }
+            }
+
+            // Handle click events 
+            var clickHandler = function (event) {
+
+                var tab = event.target.closest('[role="tab"]');
+                if (!tab) return;
+                var content = document.querySelector(tab.hash);
+                if (!content) return;
+
+                event.preventDefault();
+
+                // Show the tab
+                publicAPIs.showTab(tab, content);
+
+            };
+
+            //
+            // Public Function / Methods
+            //
+
+            /**
+            * Merge two or more objects. Returns a new object.
+            * @param {Object}   objects  The objects to merge together
+            * @returns {Object}          Merged values of defaults and options
+            */
+            var extend = function () {
+
+                // Variables
+                var extended = {};
+
+                // Merge the object into the extended object
+                var merge = function (obj) {
+                    for (var prop in obj) {
+                        if (obj.hasOwnProperty(prop)) {
+                            extended[prop] = obj[prop];
+                        }
+                    }
+                };
+
+                // Loop through each object and conduct a merge
+                for (var i = 0; i < arguments.length; i++) {
+                    merge(arguments[i]);
+                }
+
+                return extended;
+
+            };
+            
+            var ariaSetup = function() {
+                // setup tabslist
+                for (let i = 0; i < tabList.length; i++) {
+                    tabList[i].setAttribute('role', 'tablist');
+                    
+                }
+                // setup tabs
+                for (let i = 0; i < tabs.length; i++) {
+                    tabs[i].setAttribute('role', 'tab');
+                    tabs[i].setAttribute('id', 'tab' + i);
+                }
+                // setup panels
+                for (let i = 0; i < tabPanels.length; i++) {
+                    tabPanels[i].setAttribute('role', 'tabpanel');
+                    for (let i = 0; i < tabs.length; i++) {
+                        var panelId = tabs[i].hash.substring(1);
+                        tabPanels[i].setAttribute('aria-labeledby', 'tab' + i);
+                    }
+                }
+            }
+
+            var tabDefault = function() {
+                // show first tab by default
+                var initialTab = document.querySelector('a[href="' + settings.defaultTab + '"]');
+                var initialPanel = document.querySelector(settings.defaultTab);
+
+                if (!initialTab) {
+                    tabPanels[0].removeAttribute('hidden');
+                    tabs[0].setAttribute('aria-selected', 'true ');
+                } else {
+                    initialTab.setAttribute('aria-selected', 'true ');
+                    initialPanel.removeAttribute('hidden');
+                }
+
+            }
+
+            publicAPIs.init = function (options) {
+
+                // Merge user options into the defaults
+                settings = extend(defaults, options || {});
+
+                //setup aria attributes
+                ariaSetup();
+
+                //setup tabpanels 
+                hideTabs();
+                
+                //setup default tab
+                tabDefault();
+                
+                document.addEventListener('click', clickHandler, false);
+            };
+
+            return publicAPIs;
+
+        })();
+
+        tabbedPanels.init({
+            defaultTab: '#wonder-woman'
+        });
+
+    </script>
+    <noscript>
+        <style>
+            .tab-panel:not(:target) {
+                display: none;
+                visibility: hidden;
+            }
+
+            .tab-panel:target {
+                display: block;
+                visibility: visible;
+            }
+        </style>
+    </noscript>
+
+</body>
+
+</html>
